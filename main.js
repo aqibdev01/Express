@@ -1,5 +1,9 @@
 import express from "express";
+import mongoose from "mongoose";
+import { Todo } from "./models/Todo.js";
 import blog from "./routes/blog.js";
+
+let conn = await mongoose.connect("mongodb://localhost:27017/todo");
 const app = express();
 const port = 3000;
 
@@ -13,10 +17,18 @@ app.get("/", (req, res) => {
   res.render("index", { siteName: siteName, search: search });
 });
 
-app.post("/", (req, res) => {
-  res.send("Post Request");
+
+
+app.get("/", (req, res) => {
+  const todo = new Todo({
+    title: "1st Insertion, Hey!",
+    desc: "Here will go the description of Todo",
+    isDone: false,
+  });
+  todo.save()
+  res.send("Hello World!");
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`This application is running on port ${port}`);
 });

@@ -17,8 +17,6 @@ app.get("/", (req, res) => {
   res.render("index", { siteName: siteName, search: search });
 });
 
-
-
 app.get("/", (req, res) => {
   const todo = new Todo({
     title: "1st Insertion, Hey!",
